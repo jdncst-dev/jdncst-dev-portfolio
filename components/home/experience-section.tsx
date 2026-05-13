@@ -45,12 +45,16 @@ export function ExperienceSection() {
                   <div className='min-w-0'>
                     <p className='font-mono text-xs font-semibold uppercase text-accent'>
                       {item.org}
+                      <span className='font-sans font-normal normal-case text-(--text-muted)'>
+                        {' '}
+                        • {item.location}
+                      </span>
                     </p>
                     <h3 className='mt-2 text-[1.12rem] font-semibold tracking-normal text-foreground transition group-hover:text-accent sm:text-[1.18rem]'>
                       {item.role}
                     </h3>
                   </div>
-                  <div className='flex shrink-0 flex-wrap items-center gap-2 sm:max-w-60 sm:justify-end'>
+                  <div className='flex shrink-0 flex-col items-start gap-2 sm:max-w-60 sm:items-end'>
                     <span className='meta-label whitespace-nowrap'>
                       {item.period}
                     </span>

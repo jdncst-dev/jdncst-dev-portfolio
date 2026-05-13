@@ -3,64 +3,7 @@
 import Link from 'next/link'
 import { ArrowLeft, Download } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-
-const experience = [
-  {
-    role: 'Freelance Full Stack Developer / Tech Lead',
-    org: 'Viewtoo S.r.l.',
-    period: 'Sep 2019 - Present',
-    bullets: [
-      'Lead full stack, AI, infrastructure and DevOps delivery for brand engagement products and client activations.',
-      'Managed end-to-end technical delivery for AI virtual try-on, retail activation, live AR stadium and native kiosk projects.',
-      'Designed modular product architecture for reusable AI-powered visual experiences and multiple deployments.',
-      'Designed AWS production and distribution infrastructure with SSO, MFA, environment separation, Terraform and containerized delivery.'
-    ]
-  },
-  {
-    role: 'Project Lead / Full Stack Developer',
-    org: 'ITI P. Hensemberger',
-    period: 'Sep 2018 - Present',
-    bullets: [
-      'Designed, rebuilt and maintain a tutoring platform for students, tutors, operators and administrators.',
-      'Replaced a legacy HTML/PHP workflow with a modern Next.js system, custom authentication and on-prem data isolation.',
-      'Supported 500+ users and 2,000+ lesson bookings, with qualitative improvements observed in student outcomes.'
-    ]
-  },
-  {
-    role: 'Teacher of Computer Science and IT Technologies',
-    org: 'Centro Studi Modus',
-    period: 'May 2021 - Sep 2023',
-    bullets: [
-      'Prepared high school and university students for exams in technical IT subjects.'
-    ]
-  }
-]
-
-const skills = [
-  {
-    label: 'Frontend',
-    items: ['Next.js', 'React', 'TypeScript', 'HTML', 'CSS']
-  },
-  {
-    label: 'Backend',
-    items: ['Python', 'Node.js', 'API design', 'SQL']
-  },
-  {
-    label: 'Cloud / DevOps',
-    items: [
-      'Cloud services',
-      'AWS',
-      'Docker',
-      'Terraform',
-      'GitHub Actions',
-      'Linux'
-    ]
-  },
-  {
-    label: 'AI',
-    items: ['AI product workflows', 'LLM apps', 'Agentic systems']
-  }
-]
+import { resumeExperience, resumeSkills } from '@/content/resume-content'
 
 export default function ResumeClientPage() {
   return (
@@ -128,7 +71,7 @@ export default function ResumeClientPage() {
             <section className='resume-section'>
               <h2>Experience</h2>
               <div className='resume-stack'>
-                {experience.map((item) => (
+                {resumeExperience.map((item) => (
                   <section
                     className='resume-item'
                     key={`${item.org}-${item.role}`}
@@ -136,7 +79,9 @@ export default function ResumeClientPage() {
                     <div className='resume-item-header'>
                       <div>
                         <h3>{item.role}</h3>
-                        <p>{item.org}</p>
+                        <p>
+                          {item.org} <span className='resume-location'>• {item.location}</span>
+                        </p>
                       </div>
                       <span>{item.period}</span>
                     </div>
@@ -154,13 +99,15 @@ export default function ResumeClientPage() {
               <h2>Education</h2>
               <div className='resume-education-list'>
                 <div className='resume-education'>
-                  <h3>Computer Science</h3>
+                  <h3>Bachelor&apos;s Degree in Computer Science</h3>
                   <p>Università di Milano-Bicocca</p>
+                  <p className='resume-location'>Milano, Italy</p>
                   <span>Thesis in progress</span>
                 </div>
                 <div className='resume-education'>
                   <h3>Technical High School Diploma - Computer Science</h3>
                   <p>ITI P. Hensemberger</p>
+                  <p className='resume-location'>Monza, Italy</p>
                   <span>2019</span>
                 </div>
               </div>
@@ -177,7 +124,7 @@ export default function ResumeClientPage() {
             <section className='resume-panel'>
               <h2>Core Skills</h2>
               <div className='resume-skill-groups'>
-                {skills.map((group) => (
+                {resumeSkills.map((group) => (
                   <div className='resume-skill-group' key={group.label}>
                     <h3>{group.label}</h3>
                     <div className='resume-skills'>

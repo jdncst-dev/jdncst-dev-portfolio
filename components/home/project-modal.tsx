@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useCallback, useEffect, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -44,6 +44,7 @@ export function ProjectModal({
   const [carouselApi, setCarouselApi] = useState<CarouselApi>()
   const [readyProjectId, setReadyProjectId] = useState<string | null>(null)
   const isCarouselReady = readyProjectId === project.id
+  const videoRefs = useRef<Array<HTMLVideoElement | null>>([])
 
   const reInitCarousel = useCallback(() => {
     if (!carouselApi) return
@@ -52,6 +53,20 @@ export function ProjectModal({
     })
   }, [carouselApi])
 
+  const syncVideoPlayback = useCallback(
+    (activeIndex: number) => {
+      videoRefs.current.forEach((video, index) => {
+        if (!video) return
+        if (index === activeIndex) {
+          void video.play().catch(() => {})
+          return
+        }
+        video.pause()
+      })
+    },
+    []
+  )
+
   useEffect(() => {
     if (!carouselApi) return
 
@@ -59,14 +74,28 @@ export function ProjectModal({
       carouselApi.reInit()
       window.requestAnimationFrame(() => {
         carouselApi.reInit()
+        syncVideoPlayback(carouselApi.selectedScrollSnap())
         setReadyProjectId(project.id)
       })
     })
 
+    const handleSelect = () => {
+      syncVideoPlayback(carouselApi.selectedScrollSnap())
+    }
+
+    carouselApi.on('select', handleSelect)
+    carouselApi.on('reInit', handleSelect)
+
     return () => {
+      carouselApi.off('select', handleSelect)
+      carouselApi.off('reInit', handleSelect)
       window.cancelAnimationFrame(frame)
     }
-  }, [carouselApi, project.id])
+  }, [carouselApi, project.id, syncVideoPlayback])
+
+  useEffect(() => {
+    videoRefs.current = []
+  }, [project.id])
 
   return (
     <Dialog
@@ -76,7 +105,7 @@ export function ProjectModal({
       }}
     >
       <DialogContent
-        className='max-h-[94vh] w-[calc(100vw-1rem)] max-w-6xl gap-0 overflow-hidden rounded-lg border-border bg-(--surface) p-0 text-foreground shadow-2xl sm:w-[calc(100vw-3rem)] sm:max-w-6xl'
+        className='max-h-[calc(100dvh-2.75rem)] w-[calc(100vw-1rem)] max-w-6xl gap-0 overflow-hidden rounded-lg border-border bg-(--surface) p-0 text-foreground shadow-2xl sm:max-h-[calc(100dvh-3rem)] sm:w-[calc(100vw-3rem)] sm:max-w-6xl'
         showCloseButton
       >
         <DialogHeader className='border-b border-border bg-(--surface-low) px-4 py-3 sm:px-5 sm:py-4'>
@@ -86,7 +115,7 @@ export function ProjectModal({
             {project.summary}
           </DialogDescription>
         </DialogHeader>
-        <ScrollArea className='max-h-[calc(94vh-49px)] sm:max-h-[calc(94vh-57px)] lg:h-[calc(94vh-57px)] lg:min-h-0'>
+        <ScrollArea className='max-h-[calc(100dvh-93px)] sm:max-h-[calc(100dvh-105px)] lg:h-[calc(100dvh-105px)] lg:min-h-0'>
           <div
             className={hasMedia
               ? 'grid grid-cols-1 lg:h-full lg:min-h-0 lg:grid-cols-12 lg:items-stretch'
@@ -95,17 +124,23 @@ export function ProjectModal({
             {hasMedia ? (
               <div className='border-b border-border bg-(--background)/35 p-3 sm:p-5 lg:col-span-7 lg:h-full lg:min-h-0 lg:border-b-0 lg:border-r lg:p-6'>
               <Carousel
-                className='project-carousel h-[min(50svh,30rem)] max-h-[min(50svh,30rem)] lg:h-[calc(94vh-57px-3rem)] lg:max-h-[calc(94vh-57px-3rem)] lg:min-h-0'
+                className='project-carousel flex h-[min(46dvh,27rem)] max-h-[min(46dvh,27rem)] min-h-0 flex-col sm:h-[min(50dvh,30rem)] sm:max-h-[min(50dvh,30rem)] lg:h-[calc(100dvh-153px)] lg:max-h-[calc(100dvh-153px)] lg:min-h-0'
                 opts={{ align: 'start', loop: true }}
                 setApi={setCarouselApi}
               >
-                <CarouselContent className='-ml-4 h-full min-h-0 items-stretch'>
-                  {mediaSlides.map((slide) => (
+                <CarouselContent
+                  className={
+                    hasMultipleSlides
+                      ? '-ml-4 h-[calc(100%-2.25rem)] min-h-0 flex-none items-center sm:h-[calc(100%-3rem)]'
+                      : '-ml-4 h-full min-h-0 flex-none items-center'
+                  }
+                >
+                  {mediaSlides.map((slide, index) => (
                     <CarouselItem
-                      className='flex h-full min-h-0 items-center'
+                      className='flex h-full min-h-0 items-end justify-center lg:items-center'
                       key={slide.label}
                     >
-                      <div className='relative flex h-full w-full min-h-0 items-center justify-center overflow-hidden project-media-stage'>
+                      <div className='relative flex h-full w-full min-h-0 items-end justify-center overflow-hidden project-media-stage lg:items-center'>
                         {slide.type === 'video' ? (
                           <video
                             autoPlay
@@ -116,6 +151,9 @@ export function ProjectModal({
                             onCanPlay={reInitCarousel}
                             onLoadedMetadata={reInitCarousel}
                             playsInline
+                            ref={(node) => {
+                              videoRefs.current[index] = node
+                            }}
                             src={slide.src}
                           />
                         ) : slide.type === 'image' ? (
@@ -134,10 +172,28 @@ export function ProjectModal({
                   ))}
                 </CarouselContent>
                 {hasMultipleSlides && isCarouselReady ? (
-                  <>
-                    <CarouselPrevious className='left-3 top-1/2 h-11 w-11 -translate-y-1/2 border-border bg-(--background-elevated) text-foreground shadow-lg shadow-black/20 hover:bg-(--surface) hover:text-accent' />
-                    <CarouselNext className='right-3 top-1/2 h-11 w-11 -translate-y-1/2 border-border bg-(--background-elevated) text-foreground shadow-lg shadow-black/20 hover:bg-(--surface) hover:text-accent' />
-                  </>
+                  <div className='mt-3 shrink-0 flex items-center justify-between border-t border-border pt-3'>
+                    <CarouselPrevious
+                      className='project-carousel-nav !static !h-auto !w-auto !translate-y-0 !rounded-none !border-0 !bg-transparent !p-0 !shadow-none'
+                      size='default'
+                      variant='ghost'
+                    >
+                      <span className='inline-flex items-center gap-2'>
+                        <span aria-hidden='true'>&larr;</span>
+                        <span>Previous</span>
+                      </span>
+                    </CarouselPrevious>
+                    <CarouselNext
+                      className='project-carousel-nav !static !h-auto !w-auto !translate-y-0 !rounded-none !border-0 !bg-transparent !p-0 !shadow-none'
+                      size='default'
+                      variant='ghost'
+                    >
+                      <span className='inline-flex items-center gap-2'>
+                        <span>Next</span>
+                        <span aria-hidden='true'>&rarr;</span>
+                      </span>
+                    </CarouselNext>
+                  </div>
                 ) : null}
               </Carousel>
               </div>

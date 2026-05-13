@@ -17,9 +17,8 @@ export function ProfileSection() {
           <p className='mt-5 text-base leading-8 text-(--text-secondary)'>
             Nearly 10 years working as a developer, with recent ownership across
             AI visual products, immersive experiences, backend systems, cloud
-            infrastructure and delivery workflows. I work as a freelance
-            contractor while operating close to internal product and engineering
-            teams.
+            infrastructure and delivery workflows. I work operating close to
+            internal product and engineering teams.
           </p>
         </div>
         <div className='grid gap-4 md:grid-cols-2 lg:col-span-7'>

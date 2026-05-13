@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -49,7 +49,7 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-:root[data-theme="light"] {
+:root[data-theme='light'] {
   color-scheme: light;
   --background: #f6f6f7;
   --background-elevated: #ffffff;
@@ -144,9 +144,9 @@ body,
 header,
 section,
 footer,
-[data-slot="card"],
-[data-slot="dialog-content"],
-[data-slot="dropdown-menu-content"],
+[data-slot='card'],
+[data-slot='dialog-content'],
+[data-slot='dropdown-menu-content'],
 .chip,
 .button-primary,
 .button-secondary,
@@ -188,7 +188,7 @@ button:focus-visible {
 }
 
 .font-mono.uppercase,
-.font-mono [class*="uppercase"] {
+.font-mono [class*='uppercase'] {
   letter-spacing: 0;
 }
 
@@ -244,7 +244,7 @@ button:focus-visible {
   position: absolute;
   inset: -0.35rem;
   border-radius: 999px;
-  content: "";
+  content: '';
   pointer-events: none;
 }
 
@@ -353,7 +353,7 @@ button:focus-visible {
     transform 180ms ease;
 }
 
-:root[data-theme="light"] .window-tab {
+:root[data-theme='light'] .window-tab {
   background-color: #ffffff;
 }
 
@@ -374,7 +374,12 @@ button:focus-visible {
   border: 1px dashed var(--border);
   border-radius: 8px;
   background:
-    linear-gradient(135deg, transparent 0 48%, var(--accent-faint) 48% 52%, transparent 52%),
+    linear-gradient(
+      135deg,
+      transparent 0 48%,
+      var(--accent-faint) 48% 52%,
+      transparent 52%
+    ),
     var(--surface);
   cursor: pointer;
   padding: 1rem;
@@ -390,7 +395,7 @@ button:focus-visible {
 }
 
 @media (max-width: 767px) {
-  .window-minimized-slot[data-hide-mobile="true"] {
+  .window-minimized-slot[data-hide-mobile='true'] {
     display: none;
   }
 
@@ -418,7 +423,7 @@ button:focus-visible {
   position: absolute;
   inset: 0;
   border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-  content: "";
+  content: '';
   pointer-events: none;
 }
 
@@ -461,7 +466,12 @@ button:focus-visible {
 
 .project-visual {
   background:
-    linear-gradient(135deg, transparent 0 35%, var(--accent-faint) 35% 36%, transparent 36%),
+    linear-gradient(
+      135deg,
+      transparent 0 35%,
+      var(--accent-faint) 35% 36%,
+      transparent 36%
+    ),
     repeating-linear-gradient(
       0deg,
       transparent 0 16px,
@@ -472,7 +482,7 @@ button:focus-visible {
 
 .project-media {
   display: block;
-  height: 100%;
+  height: auto;
   min-height: 0;
   min-width: 0;
   width: auto;
@@ -484,31 +494,44 @@ button:focus-visible {
 }
 
 .project-media-stage {
-  height: 100%;
   min-height: 0;
+  height: 100%;
   max-height: 100%;
 }
 
 @media (max-width: 1023px) {
   .project-media-stage {
-    max-height: 50svh;
+    max-height: 50dvh;
   }
 }
 
 @media (max-width: 1023px) and (orientation: landscape) {
   .project-media-stage {
-    max-height: 50svh;
+    max-height: 50dvh;
   }
 }
 
-.project-carousel [data-slot="carousel-previous"],
-.project-carousel [data-slot="carousel-next"] {
+.project-carousel [data-slot='carousel-previous'],
+.project-carousel [data-slot='carousel-next'] {
   opacity: 1;
 }
 
-.project-carousel [data-slot="carousel-previous"]:disabled,
-.project-carousel [data-slot="carousel-next"]:disabled {
+.project-carousel [data-slot='carousel-previous']:disabled,
+.project-carousel [data-slot='carousel-next']:disabled {
   opacity: 0.42;
+}
+
+.project-carousel-nav {
+  color: var(--text-secondary);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.project-carousel-nav:hover {
+  color: var(--accent);
 }
 
 .button-primary,
@@ -617,7 +640,7 @@ button:focus-visible {
   z-index: 1;
   width: 56px;
   height: 100%;
-  content: "";
+  content: '';
   pointer-events: none;
 }
 
@@ -770,7 +793,7 @@ button:focus-visible {
   bottom: 0;
   width: 68mm;
   background: #f1eef6;
-  content: "";
+  content: '';
   z-index: 0;
 }
 
@@ -897,7 +920,7 @@ button:focus-visible {
 
 .resume-stack {
   display: grid;
-  gap: 3mm;
+  gap: 4.2mm;
 }
 
 .resume-item-header {
@@ -924,6 +947,11 @@ button:focus-visible {
   font-size: 9pt;
   font-weight: 600;
   line-height: 1.35;
+}
+
+.resume-location {
+  color: #7a7380;
+  font-weight: 400;
 }
 
 .resume-item-header > span,
@@ -963,7 +991,7 @@ button:focus-visible {
   height: 3.2mm;
   border-radius: 2px;
   background: #8b4dff;
-  content: "";
+  content: '';
 }
 
 .resume-compact-list {

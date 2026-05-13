@@ -31,6 +31,7 @@ export type SkillItem = {
 export type ExperienceItem = {
   role: string
   org: string
+  location: string
   period: string
   mode: string
   summary: string

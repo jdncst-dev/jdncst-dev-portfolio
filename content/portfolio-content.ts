@@ -283,6 +283,7 @@ export const experience: ExperienceItem[] = [
   {
     role: 'Freelance Full Stack Developer and Tech Lead',
     org: 'Viewtoo S.r.l.',
+    location: 'Milano, Italy',
     period: 'Sep 2018 - Present',
     mode: 'Current freelance contractor',
     summary:
@@ -297,6 +298,7 @@ export const experience: ExperienceItem[] = [
   {
     role: 'Project Lead and Full Stack Developer',
     org: 'ITI P. Hensemberger',
+    location: 'Monza, Italy',
     period: 'Sep 2017 - Present',
     mode: 'Long-term platform owner',
     summary:
@@ -311,6 +313,7 @@ export const experience: ExperienceItem[] = [
   {
     role: 'Teacher of Computer Science and IT Technologies',
     org: 'Centro Studi Modus',
+    location: 'Monza, Italy',
     period: 'May 2021 - Sep 2023',
     mode: 'Teaching',
     summary:
