@@ -27,6 +27,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Jordan Castiglioni', url: 'https://jdncst.dev' }],
   creator: 'Jordan Castiglioni',
   publisher: 'Jordan Castiglioni',
+  manifest: '/manifest.webmanifest',
   alternates: {
     canonical: '/'
   },
@@ -64,9 +65,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
       'max-video-preview': -1
     }
-  },
-  icons: {
-    icon: '/brand/favicon.svg'
   }
 }
 
