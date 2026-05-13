@@ -190,8 +190,7 @@ function WindowShell({
         />
       ) : placeholderText ? (
         <span className='font-mono text-xs font-semibold text-(--text-muted)'>
-          {placeholderText} <span className='lg:hidden'>v</span>
-          <span className='hidden whitespace-nowrap lg:inline'>-&gt;</span>
+          {placeholderText}
         </span>
       ) : (
         <>

@@ -60,10 +60,9 @@ export const projects: Project[] = [
     ],
     stack: [
       'AR effects',
-      'AJA 4K IO',
-      'Apple Silicon Mac',
+      'Direction',
       'Live video',
-      'Stadium workflow'
+      'Stadium'
     ],
     proof: [
       'Serie A and EuroLeague matchdays',
@@ -266,27 +265,18 @@ export const skills: SkillItem[] = [
   },
   {
     label: 'Backend',
-    value: 'Python, Node.js, Hono, Express, SQL'
+    value: 'Python, Node.js, Hono, Express, SQL, NoSQL, GraphQL, REST'
   },
   {
     label: 'Cloud / DevOps',
     value:
-      'Cloud platforms, Google Cloud, Azure, Docker, Terraform, GitHub Actions, monitoring'
+      'AWS, Google Cloud, Azure, Docker, Terraform, GitHub Actions, SSM'
   },
   {
-    label: 'Infrastructure',
-    value: 'Linux, VPS, DNS, VPN, VLANs, managed switches'
-  },
-  {
-    label: 'Applied AI',
+    label: 'Artificial Intelligence',
     value:
-      'AI product workflows, image-generation pipelines, LLM apps and agents'
+      'AI product workflows, image-generation pipelines, LLM apps and agents, chatbots'
   },
-  {
-    label: 'Delivery',
-    value:
-      'Tech leadership, modular architecture, live operations, team enablement'
-  }
 ]
 
 export const experience: ExperienceItem[] = [
