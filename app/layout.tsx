@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Jordan Castiglioni | Full Stack Developer and Tech Lead',
     description:
-      'Selected production work across AI retail experiences, live AR engagement, native kiosk applications, education platforms and infrastructure.',
+      'I build modern web applications, AI-enabled products and delivery systems from idea to production.',
     url: 'https://jdncst.dev',
     siteName: 'Jordan Castiglioni Portfolio',
     images: [
