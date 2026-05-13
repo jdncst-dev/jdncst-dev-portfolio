@@ -140,12 +140,12 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       ref={carouselRef}
-      className="overflow-hidden"
+      className="h-full min-h-0 overflow-hidden"
       data-slot="carousel-content"
     >
       <div
         className={cn(
-          "flex",
+          "flex min-h-0",
           orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
           className
         )}
@@ -164,7 +164,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
       aria-roledescription="slide"
       data-slot="carousel-item"
       className={cn(
-        "min-w-0 shrink-0 grow-0 basis-full",
+        "min-w-0 min-h-0 shrink-0 grow-0 basis-full",
         orientation === "horizontal" ? "pl-4" : "pt-4",
         className
       )}
@@ -179,7 +179,9 @@ function CarouselPrevious({
   size = "icon-sm",
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+  const { orientation, scrollPrev, canScrollPrev, opts } = useCarousel()
+  const isLooping = Boolean(opts?.loop)
+  const isDisabled = isLooping ? false : !canScrollPrev
 
   return (
     <Button
@@ -193,7 +195,7 @@ function CarouselPrevious({
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
-      disabled={!canScrollPrev}
+      disabled={isDisabled}
       onClick={scrollPrev}
       {...props}
     >
@@ -209,7 +211,9 @@ function CarouselNext({
   size = "icon-sm",
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { orientation, scrollNext, canScrollNext } = useCarousel()
+  const { orientation, scrollNext, canScrollNext, opts } = useCarousel()
+  const isLooping = Boolean(opts?.loop)
+  const isDisabled = isLooping ? false : !canScrollNext
 
   return (
     <Button
@@ -223,7 +227,7 @@ function CarouselNext({
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
-      disabled={!canScrollNext}
+      disabled={isDisabled}
       onClick={scrollNext}
       {...props}
     >
