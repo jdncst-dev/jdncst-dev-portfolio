@@ -50,7 +50,7 @@ export function HeroSection() {
                 Full Stack Developer and Tech Lead
               </p>
               <div className='mt-3 flex flex-wrap items-center gap-2 font-mono text-xs font-semibold uppercase text-accent'>
-                <span>Open to work</span>
+                <span>Freelance</span>
                 <span className='h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_12px_var(--accent)]' />
                 <span>Milano / Remote</span>
               </div>
